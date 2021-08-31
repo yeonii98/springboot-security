@@ -1,4 +1,4 @@
-package com.ajy.security.auth;
+package com.ajy.security.config.auth;
 
 //로그인 완료 -> 시큐리티 session을 만들어줍니다. (Security ContextHolder에 저장)
 //세션에 들어갈 수 있는 오브젝트 -> Authentication 타입 객체

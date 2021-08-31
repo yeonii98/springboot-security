@@ -1,6 +1,6 @@
 package com.ajy.security.controller;
 
-import com.ajy.security.auth.PrincipalDetails;
+import com.ajy.security.config.auth.PrincipalDetails;
 import com.ajy.security.model.User;
 import com.ajy.security.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

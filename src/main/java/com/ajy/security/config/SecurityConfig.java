@@ -1,6 +1,6 @@
 package com.ajy.security.config;
 
-import com.ajy.security.oauth.PrincipalOauth2UserService;
+import com.ajy.security.config.oauth.PrincipalOauth2UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
