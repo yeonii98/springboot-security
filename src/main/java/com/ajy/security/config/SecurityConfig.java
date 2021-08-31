@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/loginForm")
                 .userInfoEndpoint()
                 .userService(principalOauth2UserService);
-        //구글 로그인 완료된 뒤의 후처리가 필요함. Tip. 코드는 안 받고, 엑세스 토큰 + 사용자 프로필 정보를 받는다.
+        //구글 로그인 완료된 뒤의 후처리가 필요함. Tip. 코드는 안 받고, 엑세스 토큰 + 사용자 프로필 정보를 받는다.(oauth2 client 라이브러리)
         //1. 코드받기(인증 - 로그인 된 사용자입니다.), 2. 엑세스토큰(권한이 생김), 3. 사용자 프로필 정보 가져옴. 4-1. 그 정보를 토대로 회원가입을 자동으로 진행시키기도 함
         //4-2. 백화점이나 쇼핑물 같이 더 많은 사용자 정보를 요구한다면 추가 정보를 넣어야 함
     }

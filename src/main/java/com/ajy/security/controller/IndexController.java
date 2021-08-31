@@ -1,11 +1,15 @@
 package com.ajy.security.controller;
 
+import com.ajy.security.auth.PrincipalDetails;
 import com.ajy.security.model.User;
 import com.ajy.security.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +24,28 @@ public class IndexController {
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    //시큐리티 세션 Authentication -> userDetails(일반로그인), oAuth2User(oAuth 로그인)
+    //PrincipalDetails 타입으로 묶는다.
+    //시큐리티가 들고있는 세션 -> Authentication(OAuth2user, userDetails)
+    @GetMapping("test/login")
+    public @ResponseBody String testLogin(Authentication authentication,
+                                           @AuthenticationPrincipal PrincipalDetails userDatails){
+        PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+        System.out.println("principalDetails = " + principalDetails.getUser());
+        System.out.println("userDatails = " + userDatails.getUser());
+        return "세션 정보 확인하기";
+    }
+
+    @GetMapping("test/oauth/login")
+    public @ResponseBody String testOAuthLogin(Authentication authentication,
+                                               @AuthenticationPrincipal OAuth2User oAuth){
+        OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+        System.out.println("oAuth2User = " + oAuth2User.getAttributes());
+        System.out.println("oAuth = " + oAuth.getAttributes());
+        return "OAuth 세션 정보 확인하기";
+    }
+
+
     @GetMapping({"","/"})
     public String index(){
         //머스테치 - 스프링에서 권장하는 템플릿 - 기본 폴더 : src/main/resources/
@@ -28,7 +54,8 @@ public class IndexController {
     }
 
     @GetMapping("/user")
-    public String user(){
+    public @ResponseBody String user(@AuthenticationPrincipal PrincipalDetails principalDetails){
+        System.out.println("principalDetails = " + principalDetails.getUser());
         return "user";
     }
 
@@ -73,9 +100,6 @@ public class IndexController {
     public @ResponseBody String data(){
         return "데이터정보";
     }
-
-
-
 
 }
 
